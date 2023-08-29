@@ -20,7 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "release": "release-it"
+    "release": "release-it",
+    "commit": "cz"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +43,16 @@
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^7.0.0",
-    "release-it": "^16.1.5"
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^10.0.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "release-it": "^16.1.5",
+    "semantic-release": "^21.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
