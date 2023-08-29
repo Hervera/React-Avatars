@@ -1,0 +1,32 @@
+name: Semantic Release
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Read Version from Package.json
+        id: read-version
+        run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
+
+      - name: Run Semantic Release
+        run: npx semantic-release --no-ci --preset "conventionalcommits" --dry-run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_RELEASE_VERSION: ${{ steps.read-version.outputs.version }}
